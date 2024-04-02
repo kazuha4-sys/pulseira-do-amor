@@ -1,15 +1,10 @@
 import socket
 
 def encontrar_porta_livre():
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('localhost', 0))
-    porta = s.getsockname()[1]
-    s.close()
-    return porta
+    return 12345  # Porta específica definida manualmente
 
-# Encontrar uma porta livre
+host = '192.168.15.6'  # Escuta em todas as interfaces de rede
 porta = encontrar_porta_livre()
-host = '0.0.0.0'  # Escuta em todas as interfaces de rede
 
 # Criação do socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -36,3 +31,4 @@ client_socket.close()
 
 # Fecha o socket do servidor
 server_socket.close()
+
