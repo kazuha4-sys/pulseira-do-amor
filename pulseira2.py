@@ -1,24 +1,31 @@
 import socket
 
-# Configurações do servidor
-host = '127.0.0.1'  # Escuta em todas as interfaces de rede
-port = 12345  # Porta para conexão
+def encontrar_porta_livre():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(('localhost', 0))
+    porta = s.getsockname()[1]
+    s.close()
+    return porta
+
+# Encontrar uma porta livre
+porta = encontrar_porta_livre()
+host = '0.0.0.0'  # Escuta em todas as interfaces de rede
 
 # Criação do socket
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Associa o socket ao host e à porta
-server_socket.bind((host, port))
+server_socket.bind((host, porta))
 
 # Coloca o servidor para ouvir por conexões
 server_socket.listen(1)
 
-print(f"Servidor ouvindo em {host}:{port}")
+print(f"Servidor ouvindo em {host}:{porta}")
 
 # Aceita a conexão quando um cliente se conecta
 client_socket, client_address = server_socket.accept()
 
-print(f"Conexão de {client_address}")
+print(f"Conexao de {client_address}")
 
 # Recebe os dados do cliente
 data = client_socket.recv(1024)
